@@ -5,6 +5,13 @@
  */
 function applyCustomSort() {
   [].__proto__.sort2 = function (compareFunction) {
+    const isInvalidCompareFunction =
+      compareFunction !== undefined && typeof compareFunction !== 'function';
+
+    if (isInvalidCompareFunction) {
+      throw new TypeError('compareFunction must be a function');
+    }
+
     const compare = compareFunction
       ? (a, b) => compareFunction(a, b) > 0
       : (a, b) => String(a) > String(b);
